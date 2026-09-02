@@ -71,17 +71,30 @@ const CreatingWorkspace = () => {
 
         <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-              Workspace Title *
-            </label>
+            <div className="flex justify-between items-center mb-1.5">
+              <label className="block text-xs font-semibold text-slate-700">
+                Workspace Title *
+              </label>
+              <span className="text-[11px] text-slate-400 font-medium">Min 5, Max 30 letters</span>
+            </div>
             <input
               className="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition-all"
               placeholder="e.g. Frontend Development"
-              {...register("title", { required: "Enter the title", minLength: 5, maxLength: 30 })}
+              {...register("title", {
+                required: "Workspace title is required!",
+                minLength: {
+                  value: 5,
+                  message: "Workspace title must be at least 5 letters!",
+                },
+                maxLength: {
+                  value: 30,
+                  message: "Workspace title cannot exceed 30 letters!",
+                },
+              })}
               type="text"
             />
             {errors.title && (
-              <p className="text-xs text-red-500 mt-1">{errors.title.message}</p>
+              <p className="text-xs text-red-500 mt-1.5 font-medium">{errors.title.message}</p>
             )}
           </div>
 

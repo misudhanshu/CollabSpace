@@ -69,15 +69,22 @@ const Signup = () => {
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">Username *</label>
+            <div className="flex justify-between items-center mb-1">
+              <label className="block text-xs font-semibold text-slate-700">Username *</label>
+              <span className="text-[11px] text-slate-400 font-medium">Min 5, Max 15 letters</span>
+            </div>
             <input
               className="w-full px-4 py-3 border border-slate-300 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition-all"
               autoComplete="username"
               {...register("username", {
-                required: "Username is required",
+                required: "Username is required!",
                 minLength: {
-                  value: 2,
-                  message: "Username should contain at least 2 characters",
+                  value: 5,
+                  message: "Username must be at least 5 letters!",
+                },
+                maxLength: {
+                  value: 15,
+                  message: "Username cannot exceed 15 letters!",
                 },
               })}
               placeholder="Your username"
@@ -112,7 +119,10 @@ const Signup = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">Password *</label>
+            <div className="flex justify-between items-center mb-1">
+              <label className="block text-xs font-semibold text-slate-700">Password *</label>
+              <span className="text-[11px] text-slate-400 font-medium">Min 5 letters</span>
+            </div>
             <div className="relative">
               <input
                 className="w-full px-4 py-3 border border-slate-300 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition-all pr-10"
@@ -121,7 +131,7 @@ const Signup = () => {
                   required: "Password is required!",
                   minLength: {
                     value: 5,
-                    message: "Password must contain at least 5 characters!",
+                    message: "Password must be at least 5 letters!",
                   },
                 })}
                 type={isPasswordVisible ? "text" : "password"}

@@ -4,15 +4,15 @@ const usersSchema = new mongoose.Schema({
   username: {
     type: String,
     unique: true,
-    required: true,
-    minlength: 5,
-    maxlength: 15,
-    match: /^[A-Za-z0-9!@#$%^&*._-]+$/,
+    required: [true, "Username is required"],
+    minlength: [5, "Username must be at least 5 characters"],
+    maxlength: [15, "Username cannot exceed 15 characters"],
+    match: [/^[A-Za-z0-9!@#$%^&*._-]+$/, "Username contains invalid characters"],
   },
   password: {
     type: String,
-    required: true,
-    minlength: 5,
+    required: [true, "Password is required"],
+    minlength: [5, "Password must be at least 5 characters"],
   },
 });
 

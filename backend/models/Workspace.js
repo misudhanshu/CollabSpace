@@ -4,9 +4,9 @@ const WorkspaceSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      required: true,
-      minlength: 5,
-      maxLength: 15,
+      required: [true, "Workspace title is required"],
+      minlength: [5, "Workspace title must be at least 5 characters"],
+      maxlength: [30, "Workspace title cannot exceed 30 characters"],
     },
     description: {
       type: String,

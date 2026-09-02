@@ -77,6 +77,14 @@ const AdminDashboard = ({ workspace, onRefreshWorkspace }) => {
       showNotification("Task title is required", "error");
       return;
     }
+    if (taskTitle.trim().length < 3) {
+      showNotification("Task title must be at least 3 letters!", "error");
+      return;
+    }
+    if (taskTitle.trim().length > 50) {
+      showNotification("Task title cannot exceed 50 letters!", "error");
+      return;
+    }
 
     try {
       const response = await fetch(
@@ -292,7 +300,10 @@ const AdminDashboard = ({ workspace, onRefreshWorkspace }) => {
             <h3 className="text-sm font-bold text-slate-900">Add New Task</h3>
             <form onSubmit={handleCreateTask} className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">Title *</label>
+                <div className="flex justify-between items-center mb-1">
+                  <label className="block text-xs font-semibold text-slate-700">Title *</label>
+                  <span className="text-[10px] text-slate-400 font-medium">Min 3, Max 50 letters</span>
+                </div>
                 <input
                   type="text"
                   placeholder="Task title..."

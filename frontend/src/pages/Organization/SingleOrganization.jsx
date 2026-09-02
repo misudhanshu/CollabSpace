@@ -56,6 +56,15 @@ const SingleOrganization = () => {
   };
 
   const handleSave = async () => {
+    if (!organizationRename || organizationRename.trim().length < 5) {
+      setErrorMessage("Organization name must be at least 5 letters!");
+      return;
+    }
+    if (organizationRename.trim().length > 30) {
+      setErrorMessage("Organization name cannot exceed 30 letters!");
+      return;
+    }
+
     try {
       setErrorMessage("");
       const response = await fetch(
@@ -138,12 +147,15 @@ const SingleOrganization = () => {
 
         <div className="flex justify-between items-center">
           {isEditing ? (
-            <input
-              type="text"
-              className="border border-blue-300 rounded-lg px-3 py-1.5 text-lg font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={organizationRename}
-              onChange={(e) => setOrganizationRename(e.target.value)}
-            />
+            <div className="flex flex-col gap-1">
+              <input
+                type="text"
+                className="border border-blue-300 rounded-lg px-3 py-1.5 text-lg font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={organizationRename}
+                onChange={(e) => setOrganizationRename(e.target.value)}
+              />
+              <span className="text-[11px] text-slate-400 font-medium">Min 5, Max 30 letters</span>
+            </div>
           ) : (
             <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
               {searchedOrganization?.name}

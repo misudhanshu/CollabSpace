@@ -24,10 +24,17 @@ const creatingTask = async (req, res) => {
       task: createNewTask,
     });
   } catch (error) {
+    if (error.name === "ValidationError") {
+      const messages = Object.values(error.errors).map((e) => e.message);
+      return res.status(400).json({
+        success: false,
+        message: messages.join(", "),
+      });
+    }
     console.log(error);
     return res.status(500).json({
       success: false,
-      message: `Error: ${error}`,
+      message: error.message || `Error creating task`,
     });
   }
 };

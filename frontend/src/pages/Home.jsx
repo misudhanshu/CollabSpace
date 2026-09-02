@@ -40,7 +40,7 @@ const Home = () => {
       {/* Header */}
       <div className="text-center space-y-2">
         <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-          Welcome to Collab<span className="text-blue-600">Space</span>
+          Welcome to CollabSpace
         </h1>
         <p className="text-sm sm:text-base text-slate-500 font-medium">
           What would you like to do today?

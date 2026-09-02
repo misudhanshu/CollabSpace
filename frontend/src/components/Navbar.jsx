@@ -24,8 +24,8 @@ const Navbar = ({ toggleHamburger, setToggleHamburger }) => {
           className="flex items-center gap-2.5 cursor-pointer"
         >
           <img src={CollabSpace} className="h-8 w-auto object-contain" alt="CollabSpace Logo" />
-          <h1 className="font-bold text-lg sm:text-xl tracking-tight text-blue-600">
-            Collab<span className="text-slate-800">Space</span>
+          <h1 className="font-bold text-lg sm:text-xl tracking-tight text-slate-900">
+            Collab<span className="text-blue-600">Space</span>
           </h1>
         </div>
       </div>

@@ -6,6 +6,7 @@ import { ErrorMessage } from "@hookform/error-message";
 import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const [errorMessage, setErrorMessage] = useState("");
   const {
     register,
     handleSubmit,
@@ -24,114 +25,144 @@ const Signup = () => {
   const Icon = isPasswordVisible === false ? FaEye : FaEyeSlash;
 
   const onSubmit = async (data) => {
-    const response = await fetch("http://localhost:8000/auth/register", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    try {
+      setErrorMessage("");
+      const response = await fetch("http://localhost:8000/auth/register", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
-    const result = await response.json();
+      const result = await response.json();
 
-    navigate("/");
+      if (result.success) {
+        navigate("/");
+      } else {
+        setErrorMessage(result.message || "Registration failed!");
+      }
+    } catch (error) {
+      console.log(error);
+      setErrorMessage("Something went wrong! Please try again.");
+    }
   };
 
   return (
-    <div className="mx-[5%] sm:mx-[25%] lg:mx-[35%]">
-      <h1 className="text-lg font-semibold lg:text-2xl mt-[5%] p-[1%]">
-        Get started with Collab Space
-      </h1>
-      <p className="text-xs/5 lg:text-base font-serif font-times p-1">
-        A space to connect with developers, collaborate on projects, share
-        ideas, learn together, and build amazing things.
-      </p>
-      <form onSubmit={handleSubmit(onSubmit)} className="my-[1rem]">
-        <label className="font-semibold block">Name</label>
-        <div className="flex w-[100%] mt-[1%] gap-[5%]">
-          <input
-            className="border border-gray-300 focus:border-black rounded-lg w-[65%] placeholder:font-serif p-[2.5%]"
-            autoComplete="username"
-            {...register("username", {
-              required: "Uirstname is required",
-              minLength: {
-                value: 2,
-                message: "Username should contain atleast 2 characters",
-              },
-            })}
-            placeholder="User name"
-          />
-          <ErrorMessage
-            errors={errors}
-            name="multipleErrorInput"
-            render={({ messages }) =>
-              messages &&
-              Object.entries(messages).map(([type, message]) => (
-                <p className="text-red-500" key={type}>
-                  {message}
-                </p>
-              ))
-            }
-          />
-        </div>
-        <label className="font-semibold flex gap-1 mt-[5%]">
-          Gender <AiOutlineQuestionCircle className="mt-1" />
-        </label>
-        <select
-          className="w-[95%] px-4 py-[1%] rounded-lg h-[2rem] lg:h-[3rem] mt-[2%] border border-gray-500 focus:border-black"
-          name="gender"
-          id="gender"
-          {...register("gender")}
-        >
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </select>
-        <label className="font-semibold flex gap-1 mt-[5%]">Password</label>
-        <div className="relative">
-          <input
-            className="w-[95%] rounded-lg border border-gray-300 focus:border-black mt-[1%] p-[3%]"
-            autoComplete="current-password"
-            {...register("password", {
-              required: "Password is required!",
-              minLength: {
-                value: 5,
-                message: "Password must contain at least 5 characters!",
-              },
-            })}
-            type={isPasswordVisible ? "text" : "password"}
-            placeholder="Enter password"
-          />
-          <Icon
-            onClick={togglePassword}
-            className="absolute top-[40%] right-[10%] lg:text-xl cursor-pointer"
-          />
+    <div className="min-h-screen flex items-center justify-center bg-slate-50 p-4">
+      <div className="w-full max-w-md bg-white border border-blue-100 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
+        <div className="text-center space-y-2">
+          <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">
+            Get started with Collab<span className="text-blue-600">Space</span>
+          </h1>
+          <p className="text-xs sm:text-sm text-slate-500 font-medium">
+            Connect, collaborate on projects, and build amazing things.
+          </p>
         </div>
 
-        <ErrorMessage
-          errors={errors}
-          name="password"
-          render={({ messages }) =>
-            messages &&
-            Object.entries(messages).map(([type, message]) => (
-              <p className="text-red-500 mx-[5%] md:mx-[2%] mb-[3%]" key={type}>
-                {message}
-              </p>
-            ))
-          }
-        />
-        <button className="w-[91%] bg-blue-600 py-3 text-white mt-[10%] mx-[4.5%] sm:mx-[2.5%] md:mx-[2%] lg:mx-[1%] p-[0.5rem] xl:py-[1rem] hover:bg-blue-700 rounded-4xl cursor-pointer">
-          Submit
-        </button>
-      </form>
-      <button
-        onClick={() => {
-          navigate("/");
-        }}
-        className="w-[91%] bg-gray-200 py-3 mt-[5%] mx-[4.5%] sm:mx-[2.5%] md:mx-[2%] lg:mx-[1%] p-[0.5rem] xl:py-[1rem] mb-5 hover:bg-gray-300 rounded-4xl cursor-pointer"
-      >
-        I already have a account
-      </button>
+        {errorMessage && (
+          <div className="p-3 bg-red-50 border border-red-200 text-red-700 rounded-xl text-xs text-center font-semibold">
+            {errorMessage}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <div>
+            <label className="block text-xs font-semibold text-slate-700 mb-1">Username *</label>
+            <input
+              className="w-full px-4 py-3 border border-slate-300 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition-all"
+              autoComplete="username"
+              {...register("username", {
+                required: "Username is required",
+                minLength: {
+                  value: 2,
+                  message: "Username should contain at least 2 characters",
+                },
+              })}
+              placeholder="Your username"
+            />
+            <ErrorMessage
+              errors={errors}
+              name="username"
+              render={({ messages }) =>
+                messages &&
+                Object.entries(messages).map(([type, message]) => (
+                  <p className="text-red-500 text-xs mt-1 font-medium" key={type}>
+                    {message}
+                  </p>
+                ))
+              }
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold text-slate-700 mb-1 flex items-center gap-1">
+              Gender <AiOutlineQuestionCircle className="text-slate-400" />
+            </label>
+            <select
+              className="w-full px-4 py-3 border border-slate-300 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition-all bg-white"
+              name="gender"
+              id="gender"
+              {...register("gender")}
+            >
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold text-slate-700 mb-1">Password *</label>
+            <div className="relative">
+              <input
+                className="w-full px-4 py-3 border border-slate-300 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition-all pr-10"
+                autoComplete="current-password"
+                {...register("password", {
+                  required: "Password is required!",
+                  minLength: {
+                    value: 5,
+                    message: "Password must contain at least 5 characters!",
+                  },
+                })}
+                type={isPasswordVisible ? "text" : "password"}
+                placeholder="Create a password"
+              />
+              <Icon
+                onClick={togglePassword}
+                className="absolute top-1/2 -translate-y-1/2 right-3 text-slate-400 hover:text-blue-600 cursor-pointer text-base"
+              />
+            </div>
+
+            <ErrorMessage
+              errors={errors}
+              name="password"
+              render={({ messages }) =>
+                messages &&
+                Object.entries(messages).map(([type, message]) => (
+                  <p className="text-red-500 text-xs mt-1 font-medium" key={type}>
+                    {message}
+                  </p>
+                ))
+              }
+            />
+          </div>
+
+          <button className="w-full bg-blue-600 hover:bg-blue-700 py-3 text-white font-semibold rounded-xl text-sm transition-all shadow-xs cursor-pointer">
+            Create Account
+          </button>
+        </form>
+
+        <div className="pt-2 text-center border-t border-slate-100">
+          <button
+            onClick={() => {
+              navigate("/");
+            }}
+            className="w-full py-3 text-slate-700 hover:text-blue-600 font-semibold border border-slate-200 hover:bg-blue-50 rounded-xl text-sm transition-all cursor-pointer"
+          >
+            I already have an account
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

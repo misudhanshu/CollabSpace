@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 
 const CreatingWorkspace = () => {
   const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const {
     register,
     handleSubmit,
@@ -14,65 +15,93 @@ const CreatingWorkspace = () => {
   const { organizationId } = useParams();
 
   const onSubmit = async (data) => {
-    const response = await fetch(
-      `http://localhost:8000/organizations/${organizationId}/workspace/create`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    try {
+      setSuccessMessage("");
+      setErrorMessage("");
+
+      const response = await fetch(
+        `http://localhost:8000/organizations/${organizationId}/workspace/create`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            title: data.title,
+            description: data.description,
+          }),
         },
-        credentials: "include",
-        body: JSON.stringify({
-          title: data.title,
-          description: data.description,
-        }),
-      },
-    );
-    console.log(response);
-    if (response.ok) {
+      );
+
       const result = await response.json();
-      setSuccessMessage("Workspace created successfully!");
-      setTimeout(() => {
-        setSuccessMessage("");
-      }, 5000);
-    } else {
-      console.log("Failed to fetch!");
+
+      if (response.ok && result.success) {
+        setSuccessMessage(result.message || "Workspace created successfully!");
+        setTimeout(() => {
+          setSuccessMessage("");
+        }, 5000);
+      } else {
+        setErrorMessage(result.message || "Failed to create workspace!");
+      }
+    } catch (error) {
+      console.log(error);
+      setErrorMessage("Something went wrong! Please try again.");
     }
   };
 
   return (
-    <>
+    <div className="min-h-full flex items-center justify-center p-6 bg-slate-50">
       {successMessage && (
-        <div className="fixed top-5 right-5 z-50 rounded-lg bg-green-600 px-6 py-3 text-white shadow-lg animate-[toast-in-out_5s_ease-in-out_forwards]">
+        <div className="fixed top-5 right-5 z-50 rounded-xl bg-blue-600 px-6 py-3 text-white shadow-lg animate-[toast-in-out_5s_ease-in-out_forwards]">
           {successMessage}
         </div>
       )}
-      <h1 className="text-xl font-bold flex justify-center mt-[2%] mb-[5%]">
-        Workspace Form
-      </h1>
-      <form
-        className="h-[50vh] sm:h-[60vh] lg:h-[70vh] w-[90%] border border-gray-300 rounded-lg mx-[5%] my-[10%] lg:my-[5%] p-[2%]"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <label className="mx-[2%]">Title:</label>
-        <input
-          className="mt-[2%] p-[2%] w-[70%] border"
-          {...register("title", { required: "Enter the title", minLength: 5, maxLength: 15 })}
-          type="text"
-        />
-        <br />
-        <label className="mt-[5%]">Description:</label>
-        <textarea
-          className="mt-[2%] p-[2%] w-[100%] text-sm h-[40%] border"
-          {...register("description")}
-          type="text"
-          placeholder="Optional..."
-        />
-        <button className="border text-base mt-[2%] mx-[10%] w-[80%] rounded-lg md:rounded-2xl p-[5%] bg-blue-500 text-white sm:w-[90%] md:w-[91%] xl:w-[95%] bg-blue-600 py-3 text-white mx-[4.5%] sm:mx-[2.5%] md:mx-[2%] lg:mx-[1%] p-[0.5rem] xl:py-[1rem] hover:bg-blue-700 rounded-4xl cursor-pointer">
-          Submit
-        </button>
-      </form>
-    </>
+      {errorMessage && (
+        <div className="fixed top-5 right-5 z-50 rounded-xl bg-red-600 px-6 py-3 text-white shadow-lg">
+          {errorMessage}
+        </div>
+      )}
+
+      <div className="w-full max-w-lg bg-white border border-blue-100 rounded-2xl p-6 sm:p-8 shadow-sm space-y-6">
+        <div className="text-center space-y-1">
+          <h1 className="text-2xl font-bold text-slate-900">Create New Workspace</h1>
+          <p className="text-xs text-slate-500">Add a workspace to organize tasks and project members</p>
+        </div>
+
+        <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
+          <div>
+            <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+              Workspace Title *
+            </label>
+            <input
+              className="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition-all"
+              placeholder="e.g. Frontend Development"
+              {...register("title", { required: "Enter the title", minLength: 5, maxLength: 30 })}
+              type="text"
+            />
+            {errors.title && (
+              <p className="text-xs text-red-500 mt-1">{errors.title.message}</p>
+            )}
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+              Description
+            </label>
+            <textarea
+              className="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-900 h-28 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition-all resize-none"
+              {...register("description")}
+              placeholder="Briefly describe what this workspace is for..."
+            />
+          </div>
+
+          <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-xl text-sm transition-all shadow-sm cursor-pointer">
+            Create Workspace
+          </button>
+        </form>
+      </div>
+    </div>
   );
 };
 

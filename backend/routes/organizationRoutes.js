@@ -7,6 +7,7 @@ const {
   deleteOrganization,
 } = require("../controllers/organizationControllers");
 const authMiddleware = require("../middlewares/authMiddleware");
+const ownerMiddleware = require("../middlewares/ownerMiddleware");
 
 const router = express.Router();
 

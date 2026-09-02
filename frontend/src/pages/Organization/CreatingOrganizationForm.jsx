@@ -4,6 +4,7 @@ import "../../index.css";
 
 const CreatingOrganizationForm = () => {
   const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const {
     register,
     handleSubmit,
@@ -11,53 +12,78 @@ const CreatingOrganizationForm = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
+    try {
+      setSuccessMessage("");
+      setErrorMessage("");
 
-    const response = await fetch("http://localhost:8000/organization/create", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify({
-        name: data.organizationName,
-      }),
-    });
-    if (response.ok) {
+      const response = await fetch("http://localhost:8000/organizations/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          name: data.organizationName,
+        }),
+      });
+
       const result = await response.json();
-      setSuccessMessage("Organization created successfully!");
-      setTimeout(() => {
-        setSuccessMessage("");
-      }, 5000);
-    } else {
-      console.log("Failed to fetch!");
+
+      if (response.ok && result.success) {
+        setSuccessMessage(result.message || "Organization created successfully!");
+        setTimeout(() => {
+          setSuccessMessage("");
+        }, 5000);
+      } else {
+        setErrorMessage(result.message || "Failed to create organization!");
+      }
+    } catch (error) {
+      console.log(error);
+      setErrorMessage("Something went wrong! Please try again.");
     }
   };
 
   return (
-    <>
+    <div className="min-h-full flex items-center justify-center p-6 bg-slate-50">
       {successMessage && (
-        <div className="fixed top-5 right-5 z-50 rounded-lg bg-green-600 px-6 py-3 text-white shadow-lg animate-[toast-in-out_5s_ease-in-out_forwards]">
+        <div className="fixed top-5 right-5 z-50 rounded-xl bg-blue-600 px-6 py-3 text-white shadow-lg animate-[toast-in-out_5s_ease-in-out_forwards]">
           {successMessage}
         </div>
       )}
-      <h1 className="text-xl font-bold flex justify-center my-[5%]">
-        Organization Form
-      </h1>
-      <form
-        className="h-[40vh] w-[50%] border rounded-lg mx-[25%] my-[10%] p-[2%]"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <label className="mx-[2%]">Name:</label>
-        <input
-          className="mt-[2%] p-[2%] w-[70%] border"
-          {...register("organizationName", { required: "Enter the name" })}
-          type="text"
-        />
-        <button className="border text-base mt-[35%] mx-[10%] w-[80%] rounded-lg md:rounded-2xl p-[5%] bg-blue-500 text-white sm:mt-[30%] md:mt-[20%] lg:mt-[13%] xl:mt-[6%] sm:w-[90%] md:w-[91%] xl:w-[95%] bg-blue-600 py-3 text-white mx-[4.5%] sm:mx-[2.5%] md:mx-[2%] lg:mx-[1%] p-[0.5rem] xl:py-[1rem] hover:bg-blue-700 rounded-4xl cursor-pointer">
-          Submit
-        </button>
-      </form>
-    </>
+      {errorMessage && (
+        <div className="fixed top-5 right-5 z-50 rounded-xl bg-red-600 px-6 py-3 text-white shadow-lg">
+          {errorMessage}
+        </div>
+      )}
+      
+      <div className="w-full max-w-md bg-white border border-blue-100 rounded-2xl p-6 sm:p-8 shadow-sm space-y-6">
+        <div className="text-center space-y-1">
+          <h1 className="text-2xl font-bold text-slate-900">Create Organization</h1>
+          <p className="text-xs text-slate-500">Set up a new organization for your team</p>
+        </div>
+
+        <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
+          <div>
+            <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+              Organization Name *
+            </label>
+            <input
+              className="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition-all"
+              placeholder="e.g. Acme Corporation"
+              {...register("organizationName", { required: "Enter the organization name" })}
+              type="text"
+            />
+            {errors.organizationName && (
+              <p className="text-xs text-red-500 mt-1">{errors.organizationName.message}</p>
+            )}
+          </div>
+
+          <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-xl text-sm transition-all shadow-sm cursor-pointer">
+            Create Organization
+          </button>
+        </form>
+      </div>
+    </div>
   );
 };
 

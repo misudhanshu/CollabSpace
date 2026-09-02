@@ -1,13 +1,15 @@
 const express = require("express");
 const Organization = require("../models/Organization");
+const Workspace = require("../models/Workspace");
 
 const createOrganization = async (req, res) => {
   try {
     const { name } = req.body;
+    const userId = req.user?.id || req.user?._id;
 
     const newOrganization = await Organization.create({
       name,
-      owner: req.user.id,
+      owner: userId,
     });
 
     res.status(201).json({
@@ -26,16 +28,11 @@ const createOrganization = async (req, res) => {
 
 const gettingAllOrganizations = async (req, res) => {
   try {
-    const response = await Organization.find({
-      owner: req.user.id,
-    });
+    const userId = req.user?.id || req.user?._id;
 
-    if (!response) {
-      res.status(404).json({
-        success: false,
-        message: `No organization found!`,
-      });
-    }
+    const response = await Organization.find({
+      owner: userId,
+    });
 
     return res.status(200).json({
       success: true,
@@ -54,16 +51,10 @@ const gettingAllOrganizations = async (req, res) => {
 const gettingSingleOrganizations = async (req, res) => {
   try {
     const { organizationId } = req.params;
+    const userId = (req.user?.id || req.user?._id)?.toString();
 
     const findOrganizationInDatabase =
       await Organization.findById(organizationId);
-
-    if (findOrganizationInDatabase.owner.toString() !== req.user.id) {
-      return res.status(403).json({
-        success: false,
-        message: "You are not authorized",
-      });
-    }
 
     if (!findOrganizationInDatabase) {
       return res.status(404).json({
@@ -72,9 +63,22 @@ const gettingSingleOrganizations = async (req, res) => {
       });
     }
 
+    const isOwner = findOrganizationInDatabase.owner.toString() === userId;
+    const isMember = await Workspace.exists({
+      organization: organizationId,
+      members: userId,
+    });
+
+    if (!isOwner && !isMember) {
+      return res.status(403).json({
+        success: false,
+        message: "You are not authorized to view this organization",
+      });
+    }
+
     return res.status(200).json({
       success: true,
-      message: `Here is your organizations`,
+      message: `Here is your organization`,
       findOrganizationInDatabase,
     });
   } catch (error) {

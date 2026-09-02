@@ -13,24 +13,33 @@ const Navbar = ({ toggleHamburger, setToggleHamburger }) => {
   const navigator = useNavigate();
 
   return (
-    <div>
-      <div className="flex justify-between border border-gray-300 py-[2%]">
+    <header className="bg-white border-b border-blue-100 shadow-xs px-4 sm:px-6 py-3.5 flex items-center justify-between text-slate-800 z-10">
+      <div className="flex items-center gap-3">
         <RxHamburgerMenu
           onClick={handleHamburger}
-          className="text-lg ml-[3%] cursor-pointer md:hidden"
+          className="text-xl cursor-pointer md:hidden text-slate-600 hover:text-blue-600 transition-all"
         />
-        <div className="flex">
-          <img src={CollabSpace} className="h-[2rem] mr-[2%]" alt="" />
-          <h1 className="font-semibold top-0 text-base sm:text-xl">
-            CollabSpace
+        <div 
+          onClick={() => navigator("/home")}
+          className="flex items-center gap-2.5 cursor-pointer"
+        >
+          <img src={CollabSpace} className="h-8 w-auto object-contain" alt="CollabSpace Logo" />
+          <h1 className="font-bold text-lg sm:text-xl tracking-tight text-blue-600">
+            Collab<span className="text-slate-800">Space</span>
           </h1>
         </div>
-        <FaUser
-          onClick={() => navigator("/profile")}
-          className="cursor-pointer h-[1.3rem] w-[1.3rem] mx-[2%] text-lg"
-        />
       </div>
-    </div>
+      
+      <div className="flex items-center gap-3">
+        <div
+          onClick={() => navigator("/profile")}
+          className="cursor-pointer bg-blue-50 hover:bg-blue-100 text-blue-600 p-2.5 rounded-full border border-blue-200 transition-all shadow-xs"
+          title="User Profile"
+        >
+          <FaUser className="text-base" />
+        </div>
+      </div>
+    </header>
   );
 };
 

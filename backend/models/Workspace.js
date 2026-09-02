@@ -16,6 +16,12 @@ const WorkspaceSchema = new mongoose.Schema(
       ref: "Organization",
       required: true,
     },
+    members: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Users",
+      },
+    ],
   },
   { timestamps: true },
 );

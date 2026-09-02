@@ -6,16 +6,27 @@ import Sidebar from "../components/Sidebar";
 const Layout = () => {
   const [toggleHamburger, setToggleHamburger] = useState(false);
   return (
-    <div className="h-screen h-[100%] overflow-hidden">
+    <div className="h-screen flex flex-col overflow-hidden bg-slate-50">
       <Navbar
         toggleHamburger={toggleHamburger}
         setToggleHamburger={setToggleHamburger}
       />
 
-      <div className="flex">
-        <Sidebar toggleHamburger={toggleHamburger} />
+      <div className="flex flex-1 min-h-0 overflow-hidden relative">
+        {/* Mobile Backdrop Overlay */}
+        {toggleHamburger && (
+          <div
+            onClick={() => setToggleHamburger(false)}
+            className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-20 md:hidden transition-all"
+          />
+        )}
 
-        <main className="flex-1 overflow-auto h-[100%]">
+        <Sidebar
+          toggleHamburger={toggleHamburger}
+          setToggleHamburger={setToggleHamburger}
+        />
+
+        <main className="flex-1 min-h-0 flex flex-col overflow-auto lg:overflow-hidden bg-slate-50">
           <Outlet />
         </main>
       </div>

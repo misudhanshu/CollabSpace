@@ -17,11 +17,11 @@ const AppRoutes = () => {
       <Route path="/" element={<Login />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Signup />} />
-      <Route path="/profile" element={<UserProfile />} />
       <Route path="/create-form" element={<CreatingOrganizationForm />} />
 
       <Route element={<Layout />}>
         <Route path="/home" element={<Home />} />
+        <Route path="/profile" element={<UserProfile />} />
         <Route path="/organizations" element={<Organizations />} />
         <Route
           path="/organizations/:organizationId"

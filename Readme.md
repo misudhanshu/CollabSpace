@@ -198,16 +198,6 @@ cd backend
 npm install
 ```
 
-Create a `.env` file inside the backend directory:
-
-```env
-PORT=8000
-MONGODB_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
-```
-
-Make sure the `.env` file is not committed to GitHub.
-
 Start the backend:
 
 ```bash
@@ -277,10 +267,6 @@ Some of the concepts I'm practicing include:
 
 Some features I plan to add as the project grows:
 
-- Workspace invitations
-- Role-based permissions
-- Project management
-- Task management
 - Real-time collaboration
 - Notifications
 - Search and filtering

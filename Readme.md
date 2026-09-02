@@ -164,7 +164,7 @@ The API is built using REST principles.
 
 | Method | Endpoint         | Description            |
 | ------ | ---------------- | ---------------------- |
-| POST   | `/auth/register` | Register a new user    |
+| POST   | `/users/register` | Register a new user    |
 | POST   | `/auth/login`    | Login an existing user |
 
 ### Workspace

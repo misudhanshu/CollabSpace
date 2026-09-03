@@ -53,9 +53,13 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center bg-slate-50 p-4">
       <div className="w-full max-w-md bg-white border border-blue-100 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
         <div className="flex flex-col items-center text-center space-y-2">
-          <img className="h-16 w-auto object-contain" src={CollabSpace} alt="CollabSpace Logo" />
+          <img
+            className="h-16 w-auto object-contain"
+            src={CollabSpace}
+            alt="CollabSpace Logo"
+          />
           <h1 className="font-extrabold text-2xl tracking-tight text-slate-900">
-            Welcome to Collab<span className="text-blue-600">Space</span>
+            Welcome to CollabSpace
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 font-medium">
             Log in to manage your workspaces and projects
@@ -71,8 +75,12 @@ const Login = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
             <div className="flex justify-between items-center mb-1">
-              <label className="block text-xs font-semibold text-slate-700">Username</label>
-              <span className="text-[11px] text-slate-400 font-medium">Min 5, Max 15 letters</span>
+              <label className="block text-xs font-semibold text-slate-700">
+                Username
+              </label>
+              <span className="text-[11px] text-slate-400 font-medium">
+                Min 5, Max 15 letters
+              </span>
             </div>
             <input
               placeholder="Enter your username"
@@ -96,7 +104,10 @@ const Login = () => {
               render={({ messages }) =>
                 messages &&
                 Object.entries(messages).map(([type, message]) => (
-                  <p className="text-red-500 text-xs mt-1 font-medium" key={type}>
+                  <p
+                    className="text-red-500 text-xs mt-1 font-medium"
+                    key={type}
+                  >
                     {message}
                   </p>
                 ))
@@ -106,8 +117,12 @@ const Login = () => {
 
           <div>
             <div className="flex justify-between items-center mb-1">
-              <label className="block text-xs font-semibold text-slate-700">Password</label>
-              <span className="text-[11px] text-slate-400 font-medium">Min 5 letters</span>
+              <label className="block text-xs font-semibold text-slate-700">
+                Password
+              </label>
+              <span className="text-[11px] text-slate-400 font-medium">
+                Min 5 letters
+              </span>
             </div>
             <div className="relative">
               <input
@@ -134,7 +149,10 @@ const Login = () => {
               render={({ messages }) =>
                 messages &&
                 Object.entries(messages).map(([type, message]) => (
-                  <p className="text-red-500 text-xs mt-1 font-medium" key={type}>
+                  <p
+                    className="text-red-500 text-xs mt-1 font-medium"
+                    key={type}
+                  >
                     {message}
                   </p>
                 ))

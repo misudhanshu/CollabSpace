@@ -19,17 +19,21 @@ const Navbar = ({ toggleHamburger, setToggleHamburger }) => {
           onClick={handleHamburger}
           className="text-xl cursor-pointer md:hidden text-slate-600 hover:text-blue-600 transition-all"
         />
-        <div 
+        <div
           onClick={() => navigator("/home")}
           className="flex items-center gap-2.5 cursor-pointer"
         >
-          <img src={CollabSpace} className="h-8 w-auto object-contain" alt="CollabSpace Logo" />
+          <img
+            src={CollabSpace}
+            className="h-8 w-auto object-contain"
+            alt="CollabSpace Logo"
+          />
           <h1 className="font-bold text-lg sm:text-xl tracking-tight text-slate-900">
-            Collab<span className="text-blue-600">Space</span>
+            CollabSpace
           </h1>
         </div>
       </div>
-      
+
       <div className="flex items-center gap-3">
         <div
           onClick={() => navigator("/profile")}

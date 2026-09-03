@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useForm } from "react-hook-form";
@@ -54,7 +54,7 @@ const Signup = () => {
       <div className="w-full max-w-md bg-white border border-blue-100 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
         <div className="text-center space-y-2">
           <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">
-            Get started with Collab<span className="text-blue-600">Space</span>
+            Get started with CollabSpace
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 font-medium">
             Connect, collaborate on projects, and build amazing things.
@@ -70,8 +70,12 @@ const Signup = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
             <div className="flex justify-between items-center mb-1">
-              <label className="block text-xs font-semibold text-slate-700">Username *</label>
-              <span className="text-[11px] text-slate-400 font-medium">Min 5, Max 15 letters</span>
+              <label className="block text-xs font-semibold text-slate-700">
+                Username *
+              </label>
+              <span className="text-[11px] text-slate-400 font-medium">
+                Min 5, Max 15 letters
+              </span>
             </div>
             <input
               className="w-full px-4 py-3 border border-slate-300 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition-all"
@@ -95,7 +99,10 @@ const Signup = () => {
               render={({ messages }) =>
                 messages &&
                 Object.entries(messages).map(([type, message]) => (
-                  <p className="text-red-500 text-xs mt-1 font-medium" key={type}>
+                  <p
+                    className="text-red-500 text-xs mt-1 font-medium"
+                    key={type}
+                  >
                     {message}
                   </p>
                 ))
@@ -113,6 +120,7 @@ const Signup = () => {
               id="gender"
               {...register("gender")}
             >
+              <option value="select">Gender</option>
               <option value="male">Male</option>
               <option value="female">Female</option>
             </select>
@@ -120,13 +128,17 @@ const Signup = () => {
 
           <div>
             <div className="flex justify-between items-center mb-1">
-              <label className="block text-xs font-semibold text-slate-700">Password *</label>
-              <span className="text-[11px] text-slate-400 font-medium">Min 5 letters</span>
+              <label className="block text-xs font-semibold text-slate-700">
+                Password *
+              </label>
+              <span className="text-[11px] text-slate-400 font-medium">
+                Min 5 letters
+              </span>
             </div>
             <div className="relative">
               <input
                 className="w-full px-4 py-3 border border-slate-300 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition-all pr-10"
-                autoComplete="current-password"
+                autoComplete="new-password"
                 {...register("password", {
                   required: "Password is required!",
                   minLength: {
@@ -149,7 +161,10 @@ const Signup = () => {
               render={({ messages }) =>
                 messages &&
                 Object.entries(messages).map(([type, message]) => (
-                  <p className="text-red-500 text-xs mt-1 font-medium" key={type}>
+                  <p
+                    className="text-red-500 text-xs mt-1 font-medium"
+                    key={type}
+                  >
                     {message}
                   </p>
                 ))
@@ -157,7 +172,10 @@ const Signup = () => {
             />
           </div>
 
-          <button className="w-full bg-blue-600 hover:bg-blue-700 py-3 text-white font-semibold rounded-xl text-sm transition-all shadow-xs cursor-pointer">
+          <button
+            type="submit"
+            className="w-full bg-blue-600 hover:bg-blue-700 py-3 text-white font-semibold rounded-xl text-sm transition-all shadow-xs cursor-pointer"
+          >
             Create Account
           </button>
         </form>

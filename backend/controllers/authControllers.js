@@ -77,25 +77,28 @@ const loginUser = async (req, res) => {
     }
 
     const accessToken = jwt.sign(
-      {
-        id: isUsernameExists._id,
-      },
+      { id: isUsernameExists._id },
       process.env.JWT_SECRET_KEY,
-      {
-        expiresIn: "1d",
-      },
+      { expiresIn: "5m" },
     );
 
-    res.cookie("accessToken", accessToken, {
+    const refreshToken = jwt.sign(
+      { userId: isUsernameExists._id },
+      process.env.JWT_SECRET_KEY,
+      { expiresIn: "7d" },
+    );
+
+    res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       secure: false,
       sameSite: "lax",
       maxAge: 24 * 60 * 60 * 1000,
     });
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       message: `User logged in successfully!`,
+      accessToken,
     });
   } catch (error) {
     console.log(error);

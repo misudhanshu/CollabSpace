@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import CollabSpace from "../../assets/CollabSpace.png";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
@@ -14,7 +14,6 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm({
     criteriaMode: "all",

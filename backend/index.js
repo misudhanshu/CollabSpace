@@ -16,9 +16,14 @@ connectToDatabase();
 
 const PORT = process.env.PORT || 8000;
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://collab-space-blond-six.vercel.app",
+];
+
 app.use(
   cors({
-    origin: "https://collab-space-blond-six.vercel.app",
+    origin: allowedOrigins,
     credentials: true,
   }),
 );

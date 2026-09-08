@@ -7,7 +7,14 @@ const usersSchema = new mongoose.Schema({
     required: [true, "Username is required"],
     minlength: [5, "Username must be at least 5 characters"],
     maxlength: [15, "Username cannot exceed 15 characters"],
-    match: [/^[A-Za-z0-9!@#$%^&*._-]+$/, "Username contains invalid characters"],
+    match: [
+      /^[A-Za-z0-9!@#$%^&*._-]+$/,
+      "Username contains invalid characters",
+    ],
+  },
+  gender: {
+    type: String,
+    enum: ["Male", "Female"],
   },
   password: {
     type: String,

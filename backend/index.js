@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 8000;
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://collab-space-blond-six.vercel.app",
     credentials: true,
   }),
 );
@@ -29,7 +29,10 @@ app.use("/auth", authRoutes);
 app.use("/organizations", organizationRoutes);
 app.use("/organizations/:organizationId/workspace", workspaceRoutes);
 app.use("/users", usersRoutes);
-app.use("/organizations/:organizationId/workspace/:workspaceId/tasks", tasksRoutes);
+app.use(
+  "/organizations/:organizationId/workspace/:workspaceId/tasks",
+  tasksRoutes,
+);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

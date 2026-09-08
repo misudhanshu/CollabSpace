@@ -1,5 +1,5 @@
 const gettingUserProfile = require("../controllers/userProfileControllers");
-const authMiddleware = require("../middlewares/authMiddleware");
+const authMiddleware = require("../../middlewares/authMiddleware");
 
 const express = require("express");
 

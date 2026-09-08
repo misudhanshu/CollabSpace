@@ -11,7 +11,7 @@ const Organizations = () => {
   const fetchMyWorkspaces = async () => {
     try {
       const response = await fetch(
-        "http://localhost:8000/organizations/user/my-workspaces",
+        `http://${import.meta.env.VITE_API_URL}/organizations/user/my-workspaces`,
         { credentials: "include" },
       );
       const data = await response.json();
@@ -24,7 +24,7 @@ const Organizations = () => {
   };
 
   useEffect(() => {
-    fetchResponse(`http://localhost:8000/organizations/`, "response");
+    fetchResponse(`http://${import.meta.env.VITE_API_URL}/organizations/`, "response");
     fetchMyWorkspaces();
   }, []);
 

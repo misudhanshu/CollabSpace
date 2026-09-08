@@ -13,16 +13,19 @@ const SingleWorkspace = () => {
 
   const loadWorkspace = () => {
     fetchResponse(
-      `http://localhost:8000/organizations/${organizationId}/workspace/${workspaceId}`,
+      `http://${import.meta.env.VITE_API_URL}/organizations/${organizationId}/workspace/${workspaceId}`,
       "findTheWorkspace",
     );
   };
 
   const fetchProfile = async () => {
     try {
-      const response = await fetch("http://localhost:8000/users/profile", {
-        credentials: "include",
-      });
+      const response = await fetch(
+        `http://${import.meta.env.VITE_API_URL}/users/profile`,
+        {
+          credentials: "include",
+        },
+      );
       const data = await response.json();
       if (data.success && data.response) {
         setCurrentUser(data.response);

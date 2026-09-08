@@ -64,7 +64,7 @@ const Board = () => {
   const fetchTask = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8000/organizations/${organizationId}/workspace/${workspaceId}/tasks`,
+        `http://${import.meta.env.VITE_API_URL}/organizations/${organizationId}/workspace/${workspaceId}/tasks`,
         {
           credentials: "include",
         },
@@ -105,7 +105,7 @@ const Board = () => {
     // Persist status change to backend/database
     try {
       const response = await fetch(
-        `http://localhost:8000/organizations/${organizationId}/workspace/${workspaceId}/tasks/${taskId}/status`,
+        `http://${import.meta.env.VITE_API_URL}/organizations/${organizationId}/workspace/${workspaceId}/tasks/${taskId}/status`,
         {
           method: "PATCH",
           headers: {

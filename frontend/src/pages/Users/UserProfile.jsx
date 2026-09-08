@@ -10,7 +10,7 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await fetch("http://localhost:8000/users/profile", {
+        const response = await fetch(`http://${import.meta.env.VITE_API_URL}/users/profile`, {
           method: "GET",
           credentials: "include",
         });

@@ -26,7 +26,7 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       setErrorMessage("");
-      const response = await fetch("http://localhost:8000/auth/login", {
+      const response = await fetch(`http://${import.meta.env.VITE_API_URL}/auth/login`, {
         method: "POST",
         credentials: "include",
         headers: {

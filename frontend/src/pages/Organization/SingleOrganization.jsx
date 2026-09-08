@@ -16,7 +16,7 @@ const SingleOrganization = () => {
 
   useEffect(() => {
     fetchResponse(
-      `http://localhost:8000/organizations/${organizationId}/workspace`,
+      `http://${import.meta.env.VITE_API_URL}/organizations/${organizationId}/workspace`,
       "findAllWorkspaces",
     );
   }, []);
@@ -27,7 +27,7 @@ const SingleOrganization = () => {
     try {
       setErrorMessage("");
       const response = await fetch(
-        `http://localhost:8000/organizations/${organizationId}`,
+        `http://${import.meta.env.VITE_API_URL}/organizations/${organizationId}`,
         {
           method: "GET",
           credentials: "include",
@@ -68,7 +68,7 @@ const SingleOrganization = () => {
     try {
       setErrorMessage("");
       const response = await fetch(
-        `http://localhost:8000/organizations/rename/${organizationId}`,
+        `http://${import.meta.env.VITE_API_URL}/organizations/rename/${organizationId}`,
         {
           method: "PATCH",
           credentials: "include",
@@ -98,7 +98,7 @@ const SingleOrganization = () => {
     try {
       setErrorMessage("");
       const response = await fetch(
-        `http://localhost:8000/organizations/delete/${organizationId}`,
+        `http://${import.meta.env.VITE_API_URL}/organizations/delete/${organizationId}`,
         {
           method: "DELETE",
           credentials: "include",

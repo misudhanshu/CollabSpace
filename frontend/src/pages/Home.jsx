@@ -60,7 +60,8 @@ const Home = () => {
                 Create Your Own Organization
               </h2>
               <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
-                Create an organization, set up workspaces, and start leading your project teams.
+                Create an organization, set up workspaces, and start leading
+                your project teams.
               </p>
             </div>
             <button
@@ -114,7 +115,8 @@ const Home = () => {
                 Work With Others
               </h2>
               <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
-                Access workspaces created by other organization leaders and collaborate.
+                Access workspaces created by other organization leaders and
+                collaborate.
               </p>
             </div>
           </div>

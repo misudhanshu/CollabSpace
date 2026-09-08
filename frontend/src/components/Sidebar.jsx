@@ -1,10 +1,27 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { GiExitDoor } from "react-icons/gi";
 
 const Sidebar = ({ toggleHamburger, setToggleHamburger }) => {
+  const navigate = useNavigate();
+
   const closeMobileNav = () => {
     if (setToggleHamburger) {
       setToggleHamburger(false);
+    }
+  };
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    try {
+      await fetch("http://localhost:8000/auth/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+      closeMobileNav();
+      navigate("/");
+    } catch (error) {
+      console.error("Logout failed:", error);
+      navigate("/");
     }
   };
 
@@ -33,7 +50,7 @@ const Sidebar = ({ toggleHamburger, setToggleHamburger }) => {
 
       <div className="pt-4 border-t border-blue-100">
         <NavLink
-          onClick={closeMobileNav}
+          onClick={handleLogout}
           className="px-4 py-3 rounded-xl text-sm lg:text-base font-medium text-slate-600 hover:bg-red-50 hover:text-red-600 flex items-center justify-between transition-all"
           to="/"
         >

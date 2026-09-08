@@ -92,13 +92,19 @@ const loginUser = async (req, res) => {
       httpOnly: true,
       secure: false,
       sameSite: "lax",
-      maxAge: 24 * 60 * 60 * 1000,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax",
+      maxAge: 5 * 60 * 1000, // 5 minutes
     });
 
     return res.status(200).json({
       success: true,
       message: `User logged in successfully!`,
-      accessToken,
     });
   } catch (error) {
     console.log(error);
@@ -109,7 +115,16 @@ const loginUser = async (req, res) => {
   }
 };
 
+const logoutUser = (req, res) => {
+  res.clearCookie("accessToken");
+  res.clearCookie("refreshToken");
+  return res.status(200).json({
+    success: true,
+    message: "User logged out successfully!",
+  });
+};
 module.exports = {
   registeringUserInTheDatabase,
   loginUser,
+  logoutUser,
 };

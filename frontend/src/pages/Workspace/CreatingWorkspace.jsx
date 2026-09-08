@@ -20,7 +20,7 @@ const CreatingWorkspace = () => {
       setErrorMessage("");
 
       const response = await fetch(
-        `http://${import.meta.env.VITE_API_URL}/organizations/${organizationId}/workspace/create`,
+        `${import.meta.env.VITE_API_URL}/organizations/${organizationId}/workspace/create`,
         {
           method: "POST",
           headers: {

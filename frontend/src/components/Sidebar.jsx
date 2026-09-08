@@ -13,7 +13,7 @@ const Sidebar = ({ toggleHamburger, setToggleHamburger }) => {
   const handleLogout = async (e) => {
     e.preventDefault();
     try {
-      await fetch(`http://${import.meta.env.VITE_API_URL}/auth/logout`, {
+      await fetch(`${import.meta.env.VITE_API_URL}/auth/logout`, {
         method: "POST",
         credentials: "include",
       });

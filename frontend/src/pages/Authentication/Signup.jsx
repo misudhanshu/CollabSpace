@@ -27,7 +27,7 @@ const Signup = () => {
   const onSubmit = async (data) => {
     try {
       setErrorMessage("");
-      const response = await fetch(`http://${import.meta.env.VITE_API_URL}/auth/register`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/register`, {
         method: "POST",
         credentials: "include",
         headers: {

@@ -27,7 +27,7 @@ const Login = () => {
     try {
       setErrorMessage("");
       const response = await fetch(
-        `http://${import.meta.env.VITE_API_URL}/auth/login`,
+        `${import.meta.env.VITE_API_URL}/auth/login`,
         {
           method: "POST",
           credentials: "include",

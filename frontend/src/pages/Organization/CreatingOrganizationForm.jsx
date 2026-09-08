@@ -16,7 +16,7 @@ const CreatingOrganizationForm = () => {
       setSuccessMessage("");
       setErrorMessage("");
 
-      const response = await fetch(`http://${import.meta.env.VITE_API_URL}/organizations/create`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/organizations/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

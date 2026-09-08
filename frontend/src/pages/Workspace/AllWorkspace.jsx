@@ -10,7 +10,7 @@ const AllWorkspace = () => {
 
   useEffect(() => {
     fetchResponse(
-      `http://${import.meta.env.VITE_API_URL}/organizations/${organizationId}/workspace/`,
+      `${import.meta.env.VITE_API_URL}/organizations/${organizationId}/workspace/`,
       "findAllWorkspaces",
     );
   }, []);

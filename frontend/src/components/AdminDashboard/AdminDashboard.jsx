@@ -26,7 +26,7 @@ const AdminDashboard = ({ workspace, onRefreshWorkspace }) => {
   const fetchTasks = async () => {
     try {
       const response = await fetch(
-        `http://${import.meta.env.VITE_API_URL}/organizations/${organizationId}/workspace/${workspaceId}/tasks`,
+        `${import.meta.env.VITE_API_URL}/organizations/${organizationId}/workspace/${workspaceId}/tasks`,
         { credentials: "include" },
       );
       const data = await response.json();
@@ -41,7 +41,7 @@ const AdminDashboard = ({ workspace, onRefreshWorkspace }) => {
   const fetchRegisteredUsers = async () => {
     try {
       const response = await fetch(
-        `http://${import.meta.env.VITE_API_URL}/organizations/${organizationId}/workspace/${workspaceId}/all-users`,
+        `${import.meta.env.VITE_API_URL}/organizations/${organizationId}/workspace/${workspaceId}/all-users`,
         { credentials: "include" },
       );
       const data = await response.json();
@@ -81,7 +81,7 @@ const AdminDashboard = ({ workspace, onRefreshWorkspace }) => {
 
     try {
       const response = await fetch(
-        `http://${import.meta.env.VITE_API_URL}/organizations/${organizationId}/workspace/${workspaceId}/tasks/create`,
+        `${import.meta.env.VITE_API_URL}/organizations/${organizationId}/workspace/${workspaceId}/tasks/create`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -113,7 +113,7 @@ const AdminDashboard = ({ workspace, onRefreshWorkspace }) => {
   const handleDeleteTask = async (taskId) => {
     try {
       const response = await fetch(
-        `http://${import.meta.env.VITE_API_URL}/organizations/${organizationId}/workspace/${workspaceId}/tasks/${taskId}`,
+        `${import.meta.env.VITE_API_URL}/organizations/${organizationId}/workspace/${workspaceId}/tasks/${taskId}`,
         {
           method: "DELETE",
           credentials: "include",
@@ -142,7 +142,7 @@ const AdminDashboard = ({ workspace, onRefreshWorkspace }) => {
 
     try {
       const response = await fetch(
-        `http://${import.meta.env.VITE_API_URL}/organizations/${organizationId}/workspace/${workspaceId}/members`,
+        `${import.meta.env.VITE_API_URL}/organizations/${organizationId}/workspace/${workspaceId}/members`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -182,7 +182,7 @@ const AdminDashboard = ({ workspace, onRefreshWorkspace }) => {
       );
 
       const response = await fetch(
-        `http://${import.meta.env.VITE_API_URL}/organizations/${organizationId}/workspace/${workspaceId}/members/${targetId}`,
+        `${import.meta.env.VITE_API_URL}/organizations/${organizationId}/workspace/${workspaceId}/members/${targetId}`,
         {
           method: "DELETE",
           credentials: "include",

@@ -64,7 +64,7 @@ const Board = () => {
   const fetchTask = async () => {
     try {
       const response = await fetch(
-        `http://${import.meta.env.VITE_API_URL}/organizations/${organizationId}/workspace/${workspaceId}/tasks`,
+        `${import.meta.env.VITE_API_URL}/organizations/${organizationId}/workspace/${workspaceId}/tasks`,
         {
           credentials: "include",
         },
@@ -103,7 +103,7 @@ const Board = () => {
 
     try {
       const response = await fetch(
-        `http://${import.meta.env.VITE_API_URL}/organizations/${organizationId}/workspace/${workspaceId}/tasks/${taskId}/status`,
+        `${import.meta.env.VITE_API_URL}/organizations/${organizationId}/workspace/${workspaceId}/tasks/${taskId}/status`,
         {
           method: "PATCH",
           headers: {

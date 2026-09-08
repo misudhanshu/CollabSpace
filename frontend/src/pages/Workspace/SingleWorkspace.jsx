@@ -13,7 +13,7 @@ const SingleWorkspace = () => {
 
   const loadWorkspace = () => {
     fetchResponse(
-      `http://${import.meta.env.VITE_API_URL}/organizations/${organizationId}/workspace/${workspaceId}`,
+      `${import.meta.env.VITE_API_URL}/organizations/${organizationId}/workspace/${workspaceId}`,
       "findTheWorkspace",
     );
   };
@@ -21,7 +21,7 @@ const SingleWorkspace = () => {
   const fetchProfile = async () => {
     try {
       const response = await fetch(
-        `http://${import.meta.env.VITE_API_URL}/users/profile`,
+        `${import.meta.env.VITE_API_URL}/users/profile`,
         {
           credentials: "include",
         },

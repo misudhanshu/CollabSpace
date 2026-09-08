@@ -1,6 +1,5 @@
 const Workspace = require("../models/Workspace");
 
-// Middleware to allow workspace access to both owner and members
 const workspaceAccessMiddleware = async (req, res, next) => {
   try {
     const { workspaceId } = req.params;
@@ -44,7 +43,6 @@ const workspaceAccessMiddleware = async (req, res, next) => {
   }
 };
 
-// Middleware to restrict operation strictly to workspace/organization owner
 const workspaceOwnerOnlyMiddleware = async (req, res, next) => {
   try {
     const { workspaceId } = req.params;

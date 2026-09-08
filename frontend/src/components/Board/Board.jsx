@@ -95,14 +95,12 @@ const Board = () => {
     const taskId = source.id;
     const targetStatus = target.id;
 
-    // Optimistically update local state for fast feedback
     setTasks((prevTasks) =>
       prevTasks.map((task) =>
         task._id === taskId ? { ...task, status: targetStatus } : task,
       ),
     );
 
-    // Persist status change to backend/database
     try {
       const response = await fetch(
         `http://${import.meta.env.VITE_API_URL}/organizations/${organizationId}/workspace/${workspaceId}/tasks/${taskId}/status`,

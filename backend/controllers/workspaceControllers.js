@@ -189,7 +189,6 @@ const removeWorkspaceMember = async (req, res) => {
       });
     }
 
-    // Pull ONLY the specified memberId from members array
     targetWorkspace.members = targetWorkspace.members.filter(
       (id) => id && id.toString() !== memberId.toString(),
     );
@@ -237,7 +236,6 @@ const getMyWorkspaces = async (req, res) => {
   try {
     const userId = req.user?.id || req.user?._id;
 
-    // Find all workspaces where user is in members list
     const userWorkspaces = await Workspace.find({
       members: userId,
     }).populate({

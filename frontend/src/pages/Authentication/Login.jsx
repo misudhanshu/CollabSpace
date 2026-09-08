@@ -26,14 +26,17 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       setErrorMessage("");
-      const response = await fetch(`http://${import.meta.env.VITE_API_URL}/auth/login`, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        `http://${import.meta.env.VITE_API_URL}/auth/login`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
         },
-        body: JSON.stringify(data),
-      });
+      );
 
       const result = await response.json();
 

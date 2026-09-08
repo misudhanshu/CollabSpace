@@ -4,22 +4,18 @@ import { useParams } from "react-router-dom";
 const AdminDashboard = ({ workspace, onRefreshWorkspace }) => {
   const { organizationId, workspaceId } = useParams();
 
-  // State management
   const [tasks, setTasks] = useState([]);
   const [members, setMembers] = useState(workspace?.members || []);
   const [registeredUsers, setRegisteredUsers] = useState([]);
-  const [activeTab, setActiveTab] = useState("tasks"); // 'tasks' | 'members'
+  const [activeTab, setActiveTab] = useState("tasks"); 
 
-  // Task creation form state
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDueDate, setTaskDueDate] = useState("");
   const [taskStatus, setTaskStatus] = useState("todo");
 
-  // Member addition state
   const [selectedUsername, setSelectedUsername] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
 
-  // Notification state
   const [message, setMessage] = useState({ text: "", type: "" });
 
   const showNotification = (text, type = "success") => {
@@ -27,7 +23,6 @@ const AdminDashboard = ({ workspace, onRefreshWorkspace }) => {
     setTimeout(() => setMessage({ text: "", type: "" }), 4000);
   };
 
-  // Fetch tasks
   const fetchTasks = async () => {
     try {
       const response = await fetch(
@@ -43,7 +38,6 @@ const AdminDashboard = ({ workspace, onRefreshWorkspace }) => {
     }
   };
 
-  // Fetch registered users
   const fetchRegisteredUsers = async () => {
     try {
       const response = await fetch(
@@ -70,7 +64,6 @@ const AdminDashboard = ({ workspace, onRefreshWorkspace }) => {
     }
   }, [workspace]);
 
-  // Task Handlers
   const handleCreateTask = async (e) => {
     e.preventDefault();
     if (!taskTitle.trim()) {
@@ -140,7 +133,6 @@ const AdminDashboard = ({ workspace, onRefreshWorkspace }) => {
     }
   };
 
-  // Member Handlers
   const handleAddMember = async (e) => {
     e.preventDefault();
     if (!selectedUsername.trim()) {

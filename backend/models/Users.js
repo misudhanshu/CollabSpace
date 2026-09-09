@@ -5,11 +5,12 @@ const usersSchema = new mongoose.Schema({
     type: String,
     unique: true,
     required: [true, "Username is required"],
+    trim: true,
     minlength: [5, "Username must be at least 5 characters"],
     maxlength: [15, "Username cannot exceed 15 characters"],
     match: [
       /^[A-Za-z0-9!@#$%^&*._-]+$/,
-      "Username contains invalid characters",
+      "Username can only contain letters, numbers, and basic punctuation (no spaces)",
     ],
   },
   gender: {

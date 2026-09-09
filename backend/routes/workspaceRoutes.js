@@ -1,10 +1,10 @@
 const express = require("express");
 
-const authMiddleware = require("../../middlewares/authMiddleware");
+const authMiddleware = require("../middlewares/authMiddleware");
 const {
   workspaceAccessMiddleware,
   workspaceOwnerOnlyMiddleware,
-} = require("../../middlewares/ownerMiddleware");
+} = require("../middlewares/ownerMiddleware");
 const {
   creatingWorkspace,
   gettingAllTheWorkspaces,

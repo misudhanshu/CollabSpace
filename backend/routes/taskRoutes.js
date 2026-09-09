@@ -1,5 +1,5 @@
 const express = require("express");
-const authMiddleware = require("../../middlewares/authMiddleware");
+const authMiddleware = require("../middlewares/authMiddleware");
 const {
   creatingTask,
   gettingAllTasks,
@@ -8,7 +8,7 @@ const {
 } = require("../controllers/tasksControllers");
 const {
   workspaceAccessMiddleware,
-} = require("../../middlewares/ownerMiddleware");
+} = require("../middlewares/ownerMiddleware");
 const router = express.Router({ mergeParams: true });
 
 router.post("/create", authMiddleware, workspaceAccessMiddleware, creatingTask);

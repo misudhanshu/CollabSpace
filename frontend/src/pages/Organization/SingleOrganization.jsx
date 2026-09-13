@@ -39,7 +39,9 @@ const SingleOrganization = () => {
       if (response.ok && result.success) {
         setSearchedOrganization(result.findOrganizationInDatabase);
       } else {
-        setErrorMessage(result.message || "Failed to load organization details");
+        setErrorMessage(
+          result.message || "Failed to load organization details",
+        );
       }
     } catch (error) {
       console.log(error);
@@ -129,7 +131,9 @@ const SingleOrganization = () => {
       {errorMessage && (
         <div className="fixed top-5 right-5 z-50 rounded-xl bg-red-600 px-6 py-3 text-white shadow-lg flex items-center gap-3">
           <span>{errorMessage}</span>
-          <button onClick={() => setErrorMessage("")} className="font-bold">×</button>
+          <button onClick={() => setErrorMessage("")} className="font-bold">
+            x
+          </button>
         </div>
       )}
       <div className="flex items-center gap-2 text-slate-600 hover:text-blue-600 transition-all">
@@ -137,13 +141,18 @@ const SingleOrganization = () => {
           onClick={() => navigate("/organizations")}
           className="cursor-pointer text-base"
         />
-        <span onClick={() => navigate("/organizations")} className="text-sm font-medium cursor-pointer">
+        <span
+          onClick={() => navigate("/organizations")}
+          className="text-sm font-medium cursor-pointer"
+        >
           Back to Organizations
         </span>
       </div>
 
       <div className="rounded-2xl bg-white border border-blue-100 p-6 sm:p-8 shadow-sm space-y-3">
-        <p className="text-xs font-bold uppercase tracking-wider text-blue-600">Organization</p>
+        <p className="text-xs font-semibold uppercase">
+          Organization
+        </p>
 
         <div className="flex justify-between items-center">
           {isEditing ? (
@@ -154,7 +163,9 @@ const SingleOrganization = () => {
                 value={organizationRename}
                 onChange={(e) => setOrganizationRename(e.target.value)}
               />
-              <span className="text-[11px] text-slate-400 font-medium">Min 5, Max 30 letters</span>
+              <span className="text-[11px] text-slate-400 font-medium">
+                Min 5, Max 30 letters
+              </span>
             </div>
           ) : (
             <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
@@ -193,9 +204,7 @@ const SingleOrganization = () => {
 
       <div className="space-y-4 pt-2">
         <div className="flex justify-between items-center">
-          <h2 className="font-bold text-lg text-slate-900">
-            Workspaces
-          </h2>
+          <h2 className="font-bold text-lg text-slate-900">Workspaces</h2>
           <span
             onClick={() => navigate("workspace")}
             className="text-xs sm:text-sm font-semibold text-blue-600 hover:text-blue-800 hover:underline cursor-pointer"
@@ -208,12 +217,16 @@ const SingleOrganization = () => {
           {fetchResults.slice(0, 3).map((response) => (
             <Link
               to={`/organizations/${organizationId}/workspace/${response._id}`}
-              className="bg-white border border-blue-100 hover:border-blue-400 hover:shadow-md p-6 rounded-2xl transition-all flex flex-col justify-between space-y-3 group"
+              className="bg-white border border-blue-100 hover:border-black hover:shadow-md p-6 rounded-2xl transition-all flex flex-col justify-between space-y-3 group"
               key={response._id}
             >
               <div className="space-y-1">
-                <h3 className="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-all">{response.title}</h3>
-                <p className="text-xs text-slate-500 line-clamp-2">{response?.description || "No description provided."}</p>
+                <h3 className="text-lg font-bold text-slate-900 transition-all">
+                  {response.title}
+                </h3>
+                <p className="text-xs text-slate-500 line-clamp-2">
+                  {response?.description || "No description provided."}
+                </p>
               </div>
               <span className="text-xs font-semibold text-blue-600 flex items-center gap-1.5 pt-2 border-t border-slate-100">
                 View workspace <FaArrowRight className="text-[10px]" />

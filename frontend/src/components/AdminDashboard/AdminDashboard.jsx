@@ -7,7 +7,7 @@ const AdminDashboard = ({ workspace, onRefreshWorkspace }) => {
   const [tasks, setTasks] = useState([]);
   const [members, setMembers] = useState(workspace?.members || []);
   const [registeredUsers, setRegisteredUsers] = useState([]);
-  const [activeTab, setActiveTab] = useState("tasks"); 
+  const [activeTab, setActiveTab] = useState("tasks");
 
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDueDate, setTaskDueDate] = useState("");
@@ -170,7 +170,8 @@ const AdminDashboard = ({ workspace, onRefreshWorkspace }) => {
 
   const handleRemoveMember = async (targetMember) => {
     if (!targetMember) return;
-    const targetId = typeof targetMember === "object" ? targetMember._id : targetMember;
+    const targetId =
+      typeof targetMember === "object" ? targetMember._id : targetMember;
     if (!targetId) return;
 
     try {
@@ -216,7 +217,6 @@ const AdminDashboard = ({ workspace, onRefreshWorkspace }) => {
 
   return (
     <div className="p-4 sm:p-6 text-slate-900 h-full overflow-y-auto max-w-5xl mx-auto space-y-6">
-      {/* Toast Notification */}
       {message.text && (
         <div
           className={`px-4 py-3 rounded-xl border text-sm flex items-center justify-between font-medium ${
@@ -230,38 +230,55 @@ const AdminDashboard = ({ workspace, onRefreshWorkspace }) => {
             onClick={() => setMessage({ text: "", type: "" })}
             className="font-bold text-base hover:opacity-75"
           >
-            ×
+            x
           </button>
         </div>
       )}
 
-      {/* Header */}
       <div>
-        <h1 className="text-xl sm:text-2xl font-bold text-slate-900">Admin Dashboard</h1>
-        <p className="text-sm text-slate-500 mt-1">Workspace settings and member management</p>
+        <h1 className="text-xl sm:text-2xl font-bold text-slate-900">
+          Admin Dashboard
+        </h1>
+        <p className="text-sm text-slate-500 mt-1">
+          Workspace settings and member management
+        </p>
       </div>
 
-      {/* Stats Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="bg-white border border-blue-100 p-4.5 rounded-2xl text-center shadow-2xs">
-          <p className="text-xs font-bold text-blue-600 uppercase tracking-wider">Total Tasks</p>
-          <p className="text-2xl font-extrabold text-slate-900 mt-1">{tasks.length}</p>
+        <div className="bg-white border border-gray-300 p-4.5 rounded-2xl text-center shadow-2xs">
+          <p className="text-xs font-bold text-black uppercase tracking-wider">
+            Total Tasks
+          </p>
+          <p className="text-2xl font-extrabold text-slate-900 mt-1">
+            {tasks.length}
+          </p>
         </div>
-        <div className="bg-white border border-blue-100 p-4.5 rounded-2xl text-center shadow-2xs">
-          <p className="text-xs font-bold text-blue-600 uppercase tracking-wider">Completed</p>
-          <p className="text-2xl font-extrabold text-slate-900 mt-1">{completedTasks}</p>
+        <div className="bg-white border border-gray-300 p-4.5 rounded-2xl text-center shadow-2xs">
+          <p className="text-xs font-bold text-black uppercase tracking-wider">
+            Completed
+          </p>
+          <p className="text-2xl font-extrabold text-slate-900 mt-1">
+            {completedTasks}
+          </p>
         </div>
-        <div className="bg-white border border-blue-100 p-4.5 rounded-2xl text-center shadow-2xs">
-          <p className="text-xs font-bold text-blue-600 uppercase tracking-wider">Pending</p>
-          <p className="text-2xl font-extrabold text-slate-900 mt-1">{pendingTasks}</p>
+        <div className="bg-white border border-gray-300 p-4.5 rounded-2xl text-center shadow-2xs">
+          <p className="text-xs font-bold text-black uppercase tracking-wider">
+            Pending
+          </p>
+          <p className="text-2xl font-extrabold text-slate-900 mt-1">
+            {pendingTasks}
+          </p>
         </div>
-        <div className="bg-white border border-blue-100 p-4.5 rounded-2xl text-center shadow-2xs">
-          <p className="text-xs font-bold text-blue-600 uppercase tracking-wider">Members</p>
-          <p className="text-2xl font-extrabold text-slate-900 mt-1">{members.length}</p>
+        <div className="bg-white border border-gray-300 p-4.5 rounded-2xl text-center shadow-2xs">
+          <p className="text-xs font-bold text-black uppercase tracking-wider">
+            Members
+          </p>
+          <p className="text-2xl font-extrabold text-slate-900 mt-1">
+            {members.length}
+          </p>
         </div>
       </div>
 
-      {/* Sub Navigation Tabs */}
       <div className="flex border-b border-slate-200 gap-6">
         <button
           onClick={() => setActiveTab("tasks")}
@@ -285,16 +302,22 @@ const AdminDashboard = ({ workspace, onRefreshWorkspace }) => {
         </button>
       </div>
 
-      {/* TASKS TAB */}
       {activeTab === "tasks" && (
         <div className="space-y-6">
           <div className="bg-white border border-blue-100 p-5 sm:p-6 rounded-2xl shadow-2xs space-y-4">
             <h3 className="text-sm font-bold text-slate-900">Add New Task</h3>
-            <form onSubmit={handleCreateTask} className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <form
+              onSubmit={handleCreateTask}
+              className="grid grid-cols-1 sm:grid-cols-3 gap-4"
+            >
               <div>
                 <div className="flex justify-between items-center mb-1">
-                  <label className="block text-xs font-semibold text-slate-700">Title *</label>
-                  <span className="text-[10px] text-slate-400 font-medium">Min 3, Max 50 letters</span>
+                  <label className="block text-xs font-semibold text-slate-700">
+                    Title *
+                  </label>
+                  <span className="text-[10px] text-slate-400 font-medium">
+                    Min 3, Max 50 letters
+                  </span>
                 </div>
                 <input
                   type="text"
@@ -306,7 +329,9 @@ const AdminDashboard = ({ workspace, onRefreshWorkspace }) => {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">Due Date</label>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  Due Date
+                </label>
                 <input
                   type="date"
                   value={taskDueDate}
@@ -316,7 +341,9 @@ const AdminDashboard = ({ workspace, onRefreshWorkspace }) => {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">Status</label>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  Status
+                </label>
                 <select
                   value={taskStatus}
                   onChange={(e) => setTaskStatus(e.target.value)}
@@ -342,10 +369,14 @@ const AdminDashboard = ({ workspace, onRefreshWorkspace }) => {
 
           <div className="bg-white border border-blue-100 rounded-2xl overflow-hidden shadow-2xs">
             <div className="p-4 border-b border-blue-100 bg-blue-50/40">
-              <h3 className="font-bold text-sm text-slate-900">Workspace Tasks ({tasks.length})</h3>
+              <h3 className="font-bold text-sm text-slate-900">
+                Workspace Tasks ({tasks.length})
+              </h3>
             </div>
             {tasks.length === 0 ? (
-              <div className="p-6 text-center text-slate-500 text-sm">No tasks created yet.</div>
+              <div className="p-6 text-center text-slate-500 text-sm">
+                No tasks created yet.
+              </div>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs sm:text-sm">
@@ -359,11 +390,18 @@ const AdminDashboard = ({ workspace, onRefreshWorkspace }) => {
                   </thead>
                   <tbody className="divide-y divide-slate-100">
                     {tasks.map((task) => (
-                      <tr key={task._id} className="hover:bg-blue-50/40 transition-all">
-                        <td className="py-3.5 px-4 font-semibold text-slate-900">{task.title}</td>
+                      <tr
+                        key={task._id}
+                        className="hover:bg-blue-50/40 transition-all"
+                      >
+                        <td className="py-3.5 px-4 font-semibold text-slate-900">
+                          {task.title}
+                        </td>
                         <td className="py-3.5 px-4 text-slate-500">
                           {task.duedate
-                            ? new Date(task.duedate).toLocaleDateString("en-GB").replaceAll("/", "-")
+                            ? new Date(task.duedate)
+                                .toLocaleDateString("en-GB")
+                                .replaceAll("/", "-")
                             : "-"}
                         </td>
                         <td className="py-3.5 px-4">
@@ -389,14 +427,20 @@ const AdminDashboard = ({ workspace, onRefreshWorkspace }) => {
         </div>
       )}
 
-      {/* MEMBERS TAB */}
       {activeTab === "members" && (
         <div className="space-y-6">
           <div className="bg-white border border-blue-100 p-5 sm:p-6 rounded-2xl shadow-2xs space-y-4">
-            <h3 className="text-sm font-bold text-slate-900">Add Member to Workspace</h3>
-            <form onSubmit={handleAddMember} className="flex flex-col sm:flex-row gap-4 items-end">
+            <h3 className="text-sm font-bold text-slate-900">
+              Add Member to Workspace
+            </h3>
+            <form
+              onSubmit={handleAddMember}
+              className="flex flex-col sm:flex-row gap-4 items-end"
+            >
               <div className="flex-1 w-full relative">
-                <label className="block text-xs font-semibold text-slate-700 mb-1">Search User</label>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  Search User
+                </label>
                 <input
                   type="text"
                   placeholder="Type username..."
@@ -411,11 +455,15 @@ const AdminDashboard = ({ workspace, onRefreshWorkspace }) => {
                 {showSuggestions && selectedUsername.trim() !== "" && (
                   <ul className="absolute z-20 w-full mt-1 bg-white border border-blue-200 rounded-xl shadow-xl max-h-48 overflow-y-auto divide-y divide-slate-100">
                     {registeredUsers.filter((u) =>
-                      u.username.toLowerCase().includes(selectedUsername.toLowerCase()),
+                      u.username
+                        .toLowerCase()
+                        .includes(selectedUsername.toLowerCase()),
                     ).length > 0 ? (
                       registeredUsers
                         .filter((u) =>
-                          u.username.toLowerCase().includes(selectedUsername.toLowerCase()),
+                          u.username
+                            .toLowerCase()
+                            .includes(selectedUsername.toLowerCase()),
                         )
                         .map((u) => (
                           <li
@@ -427,11 +475,15 @@ const AdminDashboard = ({ workspace, onRefreshWorkspace }) => {
                             className="px-3.5 py-2.5 text-xs text-slate-800 hover:bg-blue-600 hover:text-white cursor-pointer transition-all flex items-center justify-between font-medium"
                           >
                             <span>{u.username}</span>
-                            <span className="text-[10px] bg-blue-50 text-blue-700 px-2 py-0.5 rounded font-semibold">User</span>
+                            <span className="text-[10px] bg-blue-50 text-blue-700 px-2 py-0.5 rounded font-semibold">
+                              User
+                            </span>
                           </li>
                         ))
                     ) : (
-                      <li className="px-3.5 py-2.5 text-xs text-slate-400 text-center">No user found</li>
+                      <li className="px-3.5 py-2.5 text-xs text-slate-400 text-center">
+                        No user found
+                      </li>
                     )}
                   </ul>
                 )}
@@ -448,7 +500,9 @@ const AdminDashboard = ({ workspace, onRefreshWorkspace }) => {
 
           <div className="bg-white border border-blue-100 rounded-2xl overflow-hidden shadow-2xs">
             <div className="p-4 border-b border-blue-100 bg-blue-50/40">
-              <h3 className="font-bold text-sm text-slate-900">Workspace Members ({members.length})</h3>
+              <h3 className="font-bold text-sm text-slate-900">
+                Workspace Members ({members.length})
+              </h3>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs sm:text-sm">
@@ -468,7 +522,10 @@ const AdminDashboard = ({ workspace, onRefreshWorkspace }) => {
                       index === 0;
 
                     return (
-                      <tr key={member._id || index} className="hover:bg-blue-50/40 transition-all">
+                      <tr
+                        key={member._id || index}
+                        className="hover:bg-blue-50/40 transition-all"
+                      >
                         <td className="py-3.5 px-4 font-semibold text-slate-900 flex items-center gap-3">
                           <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-xs font-bold text-white shadow-2xs">
                             {name.slice(0, 2).toUpperCase()}

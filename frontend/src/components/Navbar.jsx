@@ -1,8 +1,6 @@
-import React from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { FaUser } from "react-icons/fa";
 import CollabSpace from "./../assets/CollabSpace.png";
-import Hero from "./../assets/Hero-bg.svg";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = ({ toggleHamburger, setToggleHamburger }) => {
@@ -37,7 +35,7 @@ const Navbar = ({ toggleHamburger, setToggleHamburger }) => {
       <div className="flex items-center gap-3">
         <div
           onClick={() => navigator("/profile")}
-          className="cursor-pointer bg-blue-50 hover:bg-blue-100 text-blue-600 p-2.5 rounded-full border border-blue-200 transition-all shadow-xs"
+          className="cursor-pointer hover:bg-gray-100 text-black p-2.5 rounded-full border border-blue-200 transition-all shadow-xs"
           title="User Profile"
         >
           <FaUser className="text-base" />

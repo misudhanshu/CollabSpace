@@ -28,8 +28,8 @@ const Sidebar = ({ toggleHamburger, setToggleHamburger }) => {
   const activeLink = ({ isActive }) => {
     return `my-2 px-4 py-3 rounded-xl text-sm lg:text-base font-semibold flex items-center justify-between transition-all ${
       isActive
-        ? "bg-blue-600 text-white shadow-sm"
-        : "text-slate-600 hover:bg-blue-50 hover:text-blue-600"
+        ? "bg-black text-white shadow-sm"
+        : "text-slate-600 hover:bg-gray-100"
     }`;
   };
 
@@ -43,7 +43,11 @@ const Sidebar = ({ toggleHamburger, setToggleHamburger }) => {
         <NavLink onClick={closeMobileNav} className={activeLink} to="/home">
           <span>Home</span>
         </NavLink>
-        <NavLink onClick={closeMobileNav} className={activeLink} to="/organizations">
+        <NavLink
+          onClick={closeMobileNav}
+          className={activeLink}
+          to="/organizations"
+        >
           <span>All Organizations</span>
         </NavLink>
       </div>

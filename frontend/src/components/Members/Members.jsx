@@ -65,7 +65,6 @@ const Members = ({ workspace }) => {
                 key={member._id || index}
                 className="bg-white border border-blue-100 p-4 sm:p-5 rounded-2xl shadow-2xs transition-all hover:border-blue-300 hover:shadow-md flex flex-col items-center text-center sm:flex-row sm:items-center sm:text-left gap-4"
               >
-                {/* Profile Avatar */}
                 <div
                   className={`w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr ${getAvatarBg(
                     index,
@@ -74,7 +73,6 @@ const Members = ({ workspace }) => {
                   {getInitials(name)}
                 </div>
 
-                {/* Member Information */}
                 <div className="flex-1 min-w-0">
                   <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
                     <h3 className="font-bold text-base sm:text-lg text-slate-900 truncate">
@@ -82,7 +80,7 @@ const Members = ({ workspace }) => {
                     </h3>
                     {ownerFlag ? (
                       <span className="inline-flex items-center gap-1 text-xs bg-amber-50 text-amber-700 border border-amber-200 px-2.5 py-0.5 rounded-full font-bold w-fit mx-auto sm:mx-0">
-                        <FaCrown className="text-amber-500 text-xs" /> Owner
+                        Owner
                       </span>
                     ) : (
                       <span className="inline-flex items-center text-xs bg-blue-50 text-blue-700 border border-blue-200 px-2.5 py-0.5 rounded-full font-bold w-fit mx-auto sm:mx-0">

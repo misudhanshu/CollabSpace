@@ -31,16 +31,12 @@ const Home = () => {
   };
 
   useEffect(() => {
-    fetchResponse(
-      `${import.meta.env.VITE_API_URL}/organizations/`,
-      "response",
-    );
+    fetchResponse(`${import.meta.env.VITE_API_URL}/organizations/`, "response");
     fetchMyWorkspaces();
   }, []);
 
   return (
     <div className="p-4 sm:p-8 max-w-6xl mx-auto space-y-8 min-h-full">
-      {/* Header */}
       <div className="text-center space-y-2">
         <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
           Welcome to CollabSpace
@@ -50,12 +46,10 @@ const Home = () => {
         </p>
       </div>
 
-      {/* Split Choice Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
-        {/* OPTION 1: CREATE YOUR OWN ORGANIZATION */}
         <div className="bg-white border border-blue-100 rounded-2xl p-6 sm:p-8 space-y-5 flex flex-col justify-start shadow-sm hover:shadow-md transition-all">
           <div className="space-y-4">
-            <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-xl font-bold text-blue-600">
+            <div className="w-12 h-12 rounded-xl bg-white border border-gray-300 flex items-center justify-center text-xl font-bold text-black">
               <FaBuilding />
             </div>
             <div>
@@ -75,10 +69,9 @@ const Home = () => {
             </button>
           </div>
 
-          {/* Existing Owned Organizations List */}
           {fetchResults && fetchResults.length > 0 && (
             <div className="space-y-3 pt-4 border-t border-slate-100">
-              <div className="flex justify-between items-center text-xs font-bold text-blue-600 uppercase tracking-wider">
+              <div className="flex justify-between items-center text-xs font-bold text-black uppercase tracking-wider">
                 <span>My Organizations ({fetchResults.length})</span>
                 <Link
                   to="/organizations"
@@ -97,7 +90,7 @@ const Home = () => {
                     <span className="font-semibold text-slate-800">
                       {org.name}
                     </span>
-                    <span className="text-xs text-blue-600 font-semibold flex items-center gap-1">
+                    <span className="text-xs text-black font-semibold flex items-center gap-1">
                       Open <FaArrowRight className="text-[10px]" />
                     </span>
                   </Link>
@@ -107,10 +100,9 @@ const Home = () => {
           )}
         </div>
 
-        {/* OPTION 2: WORK WITH OTHERS */}
         <div className="bg-white border border-blue-100 rounded-2xl p-6 sm:p-8 space-y-5 flex flex-col justify-start shadow-sm hover:shadow-md transition-all">
           <div className="space-y-4">
-            <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 border border-blue-200 flex items-center justify-center text-xl font-bold">
+            <div className="w-12 h-12 rounded-xl bg-white text-black border border-gray-300 flex items-center justify-center text-xl font-bold">
               <FaUsers />
             </div>
             <div>
@@ -127,7 +119,7 @@ const Home = () => {
           <div className="space-y-3 pt-4 border-t border-slate-100">
             {myWorkspaces && myWorkspaces.length > 0 ? (
               <div className="space-y-3 w-full">
-                <div className="text-xs font-bold text-blue-600 uppercase tracking-wider">
+                <div className="text-xs font-bold text-black uppercase tracking-wider">
                   Invited Organizations & Workspaces ({myWorkspaces.length})
                 </div>
                 <div className="space-y-3 max-h-72 overflow-y-auto pr-1">
@@ -144,14 +136,14 @@ const Home = () => {
                     return (
                       <div
                         key={workspace._id}
-                        className="bg-blue-50/40 border border-blue-100 p-4 rounded-xl space-y-3 hover:border-blue-300 transition-all shadow-2xs"
+                        className="bg-blue-50/40 border border-blue-100 p-4 rounded-xl space-y-3 hover:border-gray-300 transition-all shadow-2xs"
                       >
                         <div className="space-y-1">
                           <div className="flex justify-between items-center">
-                            <span className="text-[11px] font-bold text-blue-600 uppercase tracking-wider">
+                            <span className="text-[11px] font-bold text-black uppercase tracking-wider">
                               Invited Organization
                             </span>
-                            <span className="inline-flex items-center gap-1 text-[11px] bg-blue-100 text-blue-800 border border-blue-200 px-2.5 py-0.5 rounded-full font-medium">
+                            <span className="inline-flex items-center gap-1 text-[11px] bg-white text-black border border-blue-200 px-2.5 py-0.5 rounded-full font-medium">
                               <FaUserTie className="text-[10px]" /> Owner:{" "}
                               {ownerName}
                             </span>

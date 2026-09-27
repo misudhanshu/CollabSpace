@@ -37,8 +37,11 @@ const SingleWorkspace = () => {
 
   useEffect(() => {
     loadWorkspace();
-    fetchProfile();
   }, [organizationId, workspaceId]);
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
 
   const owner = fetchResults?.organization?.owner;
   const isAdmin =

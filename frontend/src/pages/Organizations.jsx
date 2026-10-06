@@ -4,36 +4,16 @@ import useFetchResponse from "../hooks/useFetchResponse";
 
 const Organizations = () => {
   const [inputValue, setInputValue] = useState("");
-  const [myWorkspaces, setMyWorkspaces] = useState([]);
 
   const { fetchResponse, fetchResults } = useFetchResponse();
 
-  const fetchMyWorkspaces = async () => {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/organizations/my-workspaces`,
-        { credentials: "include" },
-      );
-      const data = await response.json();
-      if (response.ok && data.success) {
-        setMyWorkspaces(data.workspaces || []);
-      }
-    } catch (error) {
-      console.error("Error fetching user workspaces:", error);
-    }
-  };
 
   useEffect(() => {
     fetchResponse(`${import.meta.env.VITE_API_URL}/organizations/`, "response");
-    fetchMyWorkspaces();
   }, []);
 
   const filteredOrgs = fetchResults.filter((item) =>
     item.name.toLowerCase().includes(inputValue.toLowerCase()),
-  );
-
-  const filteredWorkspaces = myWorkspaces.filter((w) =>
-    w.title.toLowerCase().includes(inputValue.toLowerCase()),
   );
 
   return (
@@ -41,10 +21,10 @@ const Organizations = () => {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-            My Workspaces & Organizations
+            Organizations
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-1">
-            Access your workspaces directly or browse organizations
+            Browse organizations
           </p>
         </div>
       </div>
@@ -53,40 +33,8 @@ const Organizations = () => {
         type="text"
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
-        placeholder="Search workspace or organization..."
+        placeholder="Search organization..."
       />
-
-      {myWorkspaces.length > 0 && (
-        <div className="space-y-4">
-          <h2 className="text-lg font-bold text-slate-900">
-            Joined Workspaces
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {filteredWorkspaces.map((workspace) => {
-              const orgId =
-                workspace.organization?._id || workspace.organization;
-              return (
-                <Link
-                  to={`/organizations/${orgId}/workspace/${workspace._id}`}
-                  key={workspace._id}
-                  className="bg-white text-slate-900 p-5 rounded-2xl border border-blue-100 hover:border-blue-400 hover:shadow-md transition-all block space-y-2 group"
-                >
-                  <h3 className="font-bold text-base text-slate-900 group-hover:text-blue-600 transition-all">
-                    {workspace.title}
-                  </h3>
-                  <p className="text-xs text-slate-500">
-                    Organization:{" "}
-                    {workspace.organization?.name || "CollabSpace"}
-                  </p>
-                  <span className="text-xs text-blue-600 font-semibold inline-flex items-center gap-1 pt-1">
-                    Open Workspace Board &rarr;
-                  </span>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      )}
 
       <div className="space-y-4 pt-6 border-t border-slate-200">
         <h2 className="text-lg font-bold text-slate-900">Organizations</h2>

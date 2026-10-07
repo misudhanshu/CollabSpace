@@ -280,13 +280,13 @@ These features will be added gradually as the core application becomes more comp
 
 ## Screenshots
 
-Screenshots will be added as the frontend development progresses.
+
 
 ---
 
 ## Live Demo
 
-Coming soon.
+https://collab-space-blond-six.vercel.app/
 
 ---
 

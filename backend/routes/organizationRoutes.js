@@ -16,7 +16,17 @@ router.post("/create", authMiddleware, createOrganization);
 router.get("/", authMiddleware, gettingAllOrganizations);
 router.get("/my-workspaces", authMiddleware, getMyWorkspaces);
 router.get("/:organizationId", authMiddleware, gettingSingleOrganizations);
-router.patch("/rename/:organizationId", authMiddleware, updateOrganization);
-router.delete("/delete/:organizationId", authMiddleware, deleteOrganization);
+router.patch(
+  "/rename/:organizationId",
+  authMiddleware,
+  ownerMiddleware,
+  updateOrganization,
+);
+router.delete(
+  "/delete/:organizationId",
+  authMiddleware,
+  ownerMiddleware,
+  deleteOrganization,
+);
 
 module.exports = router;

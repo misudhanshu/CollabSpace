@@ -7,9 +7,8 @@ const workspaceAccessMiddleware = async (req, res, next) => {
       return next();
     }
 
-    const workspace = await Workspace.findById(workspaceId).populate(
-      "organization",
-    );
+    const workspace =
+      await Workspace.findById(workspaceId).populate("organization");
 
     if (!workspace) {
       return res.status(404).json({
@@ -28,7 +27,8 @@ const workspaceAccessMiddleware = async (req, res, next) => {
     if (!isOwner && !isMember) {
       return res.status(403).json({
         success: false,
-        message: "You do not have access to perform this operation on this workspace!",
+        message:
+          "You do not have access to perform this operation on this workspace!",
       });
     }
 
@@ -50,9 +50,8 @@ const workspaceOwnerOnlyMiddleware = async (req, res, next) => {
       return next();
     }
 
-    const workspace = await Workspace.findById(workspaceId).populate(
-      "organization",
-    );
+    const workspace =
+      await Workspace.findById(workspaceId).populate("organization");
 
     if (!workspace) {
       return res.status(404).json({
@@ -86,5 +85,4 @@ const workspaceOwnerOnlyMiddleware = async (req, res, next) => {
 module.exports = {
   workspaceAccessMiddleware,
   workspaceOwnerOnlyMiddleware,
-  ownerMiddleware: workspaceOwnerOnlyMiddleware,
 };

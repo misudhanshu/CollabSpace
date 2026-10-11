@@ -8,7 +8,9 @@ const {
 } = require("../controllers/organizationControllers");
 const { getMyWorkspaces } = require("../controllers/workspaceControllers");
 const authMiddleware = require("../middlewares/authMiddleware");
-const ownerMiddleware = require("../middlewares/ownerMiddleware");
+const {
+  workspaceOwnerOnlyMiddleware,
+} = require("../middlewares/ownerMiddleware");
 
 const router = express.Router();
 
@@ -19,13 +21,13 @@ router.get("/:organizationId", authMiddleware, gettingSingleOrganizations);
 router.patch(
   "/rename/:organizationId",
   authMiddleware,
-  ownerMiddleware,
+  workspaceOwnerOnlyMiddleware,
   updateOrganization,
 );
 router.delete(
   "/delete/:organizationId",
   authMiddleware,
-  ownerMiddleware,
+  workspaceOwnerOnlyMiddleware,
   deleteOrganization,
 );
 

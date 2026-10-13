@@ -1,6 +1,6 @@
-const express = require("express");
 const Organization = require("../models/Organization");
 const Workspace = require("../models/Workspace");
+const Tasks = require("../models/Tasks");
 
 const createOrganization = async (req, res) => {
   try {
@@ -149,26 +149,56 @@ const updateOrganization = async (req, res) => {
 const deleteOrganization = async (req, res) => {
   try {
     const { organizationId } = req.params;
+    const userId = (req.user?.id || req.user?._id)?.toString();
 
-    const deleteCurrentOrganization =
-      await Organization.findByIdAndDelete(organizationId);
+    const currentOrganization = await Organization.findById(organizationId);
 
-    if (!deleteCurrentOrganization) {
+    if (!currentOrganization) {
       return res.status(404).json({
         success: false,
-        message: `Organization not found!`,
+        message: "Organization not found!",
       });
     }
 
+    if (
+      !userId ||
+      !currentOrganization.owner ||
+      currentOrganization.owner.toString() !== userId
+    ) {
+      return res.status(403).json({
+        success: false,
+        message: "You are not authorized to delete this organization",
+      });
+    }
+
+    const workspaces = await Workspace.find({
+      organization: organizationId,
+    }).select("_id");
+
+    const workspaceIds = workspaces.map((w) => w._id);
+
+    if (workspaceIds.length > 0) {
+      await Tasks.deleteMany({
+        workspace: { $in: workspaceIds },
+      });
+    }
+
+    await Workspace.deleteMany({
+      organization: organizationId,
+    });
+
+    await Organization.findByIdAndDelete(organizationId);
+
     return res.status(200).json({
       success: true,
-      message: `Organization deleted successfully`,
+      message: "Organization deleted successfully",
     });
   } catch (error) {
-    console.log(error);
+    console.error("Delete organization error:", error);
+
     return res.status(500).json({
       success: false,
-      message: `Internal server error`,
+      message: "Internal server error",
     });
   }
 };

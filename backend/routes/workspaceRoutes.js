@@ -18,7 +18,12 @@ const {
 const router = express.Router({ mergeParams: true });
 
 router.get("/user/my-workspaces", authMiddleware, getMyWorkspaces);
-router.post("/create", authMiddleware, creatingWorkspace);
+router.post(
+  "/create",
+  authMiddleware,
+  workspaceOwnerOnlyMiddleware,
+  creatingWorkspace,
+);
 router.get("/", authMiddleware, gettingAllTheWorkspaces);
 router.get(
   "/:workspaceId",

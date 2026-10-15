@@ -3,7 +3,7 @@ import useFetchResponse from "../../hooks/useFetchResponse";
 import { useEffect, useState } from "react";
 
 const AllWorkspace = () => {
-  const { fetchResponse, fetchResults } = useFetchResponse();
+  const { fetchResponse, fetchResults, errorMessage, setErrorMessage } = useFetchResponse();
   const [inputValue, setInputValue] = useState("");
 
   const { organizationId } = useParams();
@@ -16,13 +16,19 @@ const AllWorkspace = () => {
   }, []);
 
   const filteredResults = fetchResults.filter((item) =>
-    inputValue.trim()
-      ? item.title.toLowerCase().includes(inputValue.toLowerCase())
-      : fetchResults,
+    item.title?.toLowerCase().includes(inputValue.toLowerCase()),
   );
 
   return (
     <div>
+      {errorMessage && (
+        <div className="fixed top-5 right-5 z-50 rounded-xl bg-red-600 px-6 py-3 text-white shadow-lg flex items-center gap-3">
+          <span>{errorMessage}</span>
+          <button onClick={() => setErrorMessage("")} className="font-bold">
+            x
+          </button>
+        </div>
+      )}
       <input
         className="border my-[1%] mx-[30%] w-[30%] p-[1%]"
         type="text"

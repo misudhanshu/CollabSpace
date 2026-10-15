@@ -24,12 +24,7 @@ router.post(
   workspaceOwnerOnlyMiddleware,
   creatingWorkspace,
 );
-router.get(
-  "/",
-  authMiddleware,
-  workspaceOwnerOnlyMiddleware,
-  gettingAllTheWorkspaces,
-);
+router.get("/", authMiddleware, gettingAllTheWorkspaces);
 router.get(
   "/:workspaceId",
   authMiddleware,

@@ -1,4 +1,7 @@
 const express = require("express");
+const {
+  organizationOwnerOnlyMiddleware,
+} = require("../middlewares/organizationMiddleware");
 
 const authMiddleware = require("../middlewares/authMiddleware");
 const {
@@ -21,7 +24,7 @@ router.get("/user/my-workspaces", authMiddleware, getMyWorkspaces);
 router.post(
   "/create",
   authMiddleware,
-  workspaceOwnerOnlyMiddleware,
+  organizationOwnerOnlyMiddleware,
   creatingWorkspace,
 );
 router.get("/", authMiddleware, gettingAllTheWorkspaces);

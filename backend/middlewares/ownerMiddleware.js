@@ -4,7 +4,10 @@ const workspaceAccessMiddleware = async (req, res, next) => {
   try {
     const { workspaceId } = req.params;
     if (!workspaceId) {
-      return next();
+      return res.status(400).json({
+        success: false,
+        message: "Workspace ID is required in request parameters",
+      });
     }
 
     const workspace =
@@ -47,7 +50,10 @@ const workspaceOwnerOnlyMiddleware = async (req, res, next) => {
   try {
     const { workspaceId } = req.params;
     if (!workspaceId) {
-      return next();
+      return res.status(400).json({
+        success: false,
+        message: "Workspace ID is required in request parameters",
+      });
     }
 
     const workspace =
